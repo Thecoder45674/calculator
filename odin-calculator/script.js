@@ -3,9 +3,9 @@ const buttons = document.querySelectorAll(".calc-button");
 const operationButtons = document.querySelectorAll(".cal-button.operator");
 const per
 
-const calculator = {
-    allClear:
-}
+
+// test 123
+
 /* const MAXINTS = 5;
 
 const display = document.querySelector(".display");
