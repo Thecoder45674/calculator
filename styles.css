@@ -86,7 +86,11 @@ button:hover {
 }
 
 button:active {
+<<<<<<< HEAD:styles.css
     opacity: 90%;
+=======
+    background-color: #B9FFFF;
+>>>>>>> 5e60bd6 (Remove unrelated directories from clean-branch):odin-calculator/styles.css
 }  
 
 
