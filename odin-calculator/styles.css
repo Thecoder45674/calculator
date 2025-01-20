@@ -12,21 +12,18 @@ body {
 }
 
 .calculator {
-    display: flex;
+    display: grid;
     justify-content: center;
     align-items: center;
     margin: 100px;
     background-color: #1C1C1C;
     width: 350px;
-    height: 600px;
+    min-height: 600px;
     border-radius: 50px;
     padding: 20px;
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
     height: 100%;
 }
@@ -41,8 +38,7 @@ body {
     color: #FFFFFF;
 }
 
-
-.buttons {
+.cal-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -62,28 +58,26 @@ button {
     color: #FFFFFF;
 }
 
-.calc-button[data-action="clear"],
-.calc-button[data-action="sign-change"],
-.calc-button[data-action="percentage"] {
-    background-color: #D4D4D2;
-    color: #1C1C1C;
-    
+.span-two {
+    width: 46%;
 }
 
-.calc-button[data-value="0"] {
-    width: 164px;
-}
-
-.calc-button[data-action="divide"],
-.calc-button[data-action="multiply"],
-.calc-button[data-action="subtract"],
-.calc-button[data-action="add"],
-.calc-button[data-action="equals"] {
+button[data-operation],
+button[data-equals] {
     background-color: #FF9500;
 }
 
+button[data-all-clear],
+button[data-sign],
+button[data-percent] {
+    background-color: #D4D4D2;
+    color: #1C1C1C;
+}
 
+button:hover {
+    background-color: #9BD8D8;
+}
 
-
-
-
+button:active {
+    background-color: #B9FFFF;
+}
