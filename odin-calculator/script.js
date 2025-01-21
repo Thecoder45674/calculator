@@ -1,3 +1,7 @@
+let A = 0;
+let B = null;
+let operator = null;
+let lastOperator = null;
 let currentInput = "0";
 
 const display = document.querySelector(".result");
@@ -8,10 +12,6 @@ const signChangeButton = document.querySelector("[data-sign-change]");
 const percentButton = document.querySelector("[data-percent]");
 const equalsButton = document.querySelector("[data-equals]");
 
-// A+B, A-B,A*B, A/B
-let A = 0;
-let operator = null;
-let B = null;
 
 // Function to round numbers to specified decimal places
 const roundTo = (number, decimalPlaces) => {
@@ -85,18 +85,29 @@ operationButtons.forEach(button => {
         const operatorValue = button.dataset.operation;
 
         if (operator && currentInput !== "0") {
-            B = parseFloat(currentInput); 
-            A = calculate(A, B, operator); 
-            currentInput = A.toString(); 
-            updateDisplay();
+            const isAdditionOrSubtraction = (operator === 'add' || operator === 'subtract');
+
+            if (isAdditionOrSubtraction && (operatorValue === 'add' || operatorValue === 'subtract')) {
+                B = parseFloat(currentInput); 
+                A = calculate(A, B, operator); 
+                currentInput = A.toString(); 
+                updateDisplay();
+            } else if (operator === 'multiply' || operator === 'divide') {
+                B = parseFloat(currentInput); 
+                A = calculate(A, B, operator);
+                currentInput = A.toString(); 
+                updateDisplay();
+            }
+
         } else if (!operator) {
             A = parseFloat(currentInput);
         }
-       
+
         operator = operatorValue;
         currentInput = "0";
     });
 });
+
 
 // Event listener for equals button
 equalsButton.addEventListener("click", () => {
@@ -106,7 +117,6 @@ equalsButton.addEventListener("click", () => {
         currentInput = roundTo(A, 5).toString(); 
         operator = null;
         updateDisplay();
-        console.log(currentInput);
     }
 });
 
