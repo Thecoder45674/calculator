@@ -1,124 +1,143 @@
-const display = document.querySelector(".display");
-const buttons = document.querySelectorAll(".calc-button");
-const operationButtons = document.querySelectorAll(".cal-button.operator");
-const per
+let currentInput = "0";
 
+const display = document.querySelector(".result");
+const numberButtons = document.querySelectorAll("[data-number]");
+const operationButtons = document.querySelectorAll("[data-operation]");
+const allClearButton = document.querySelector("[data-all-clear]");
+const signChangeButton = document.querySelector("[data-sign-change]");
+const percentButton = document.querySelector("[data-percent]");
+const equalsButton = document.querySelector("[data-equals]");
 
-// test 123
+// A+B, A-B,A*B, A/B
+let A = 0;
+let operator = null;
+let B = null;
 
-/* const MAXINTS = 5;
+// Function to round numbers to specified decimal places
+const roundTo = (number, decimalPlaces) => {
+    const factor = Math.pow(10, decimalPlaces);
+    return Math.round(number * factor) / factor;
+};
 
-const display = document.querySelector(".display");
-const buttons = document.querySelectorAll(".calc-button");
+// Function to update display
+const updateDisplay = () => {
+    display.value = currentInput; 
+};
 
-function processInput() {
-    let state = [];
-    let currentInput = "0";
+// Event listener for sign change button
+signChangeButton.addEventListener("click", () => {
+    if (currentInput === "0") {
+        return;
+    }
 
-    buttons.forEach(button => {
-        button.addEventListener("click", (e) => {
-            const action = button.dataset.action;
-            const value = button.dataset.value;
-            
-            // Handle number input
-            if (value) {
-                if (currentInput === "0") {
-                    currentInput = value; // Start a new number
-                } if (currentInput.length < MAXINTS) {
-                    currentInput += value;
-                } else {
-                    alert("Max " + MAXINTS + " digits allowed");
-                }
-                display.innerHTML = currentInput;
-            } 
-            
-            // Handle actions
-            else if (action) {
+    if (currentInput[0] === "-") {
+        currentInput = currentInput.slice(1); 
+    } else {
+        currentInput = "-" + currentInput; 
+    }
 
-                // Handle the all-clear action
-                if (action === "all-clear") {
-                    currentInput = "";
-                    state = [];
-                    display.innerHTML = currentInput;
-                    return;
-                }
+    updateDisplay();
+});
 
-                // Handle the operator actions
-                if (button.classList.contains("operator")) {
-                    const currentNumber = 0;
-                    if (currentInput !== 0) {
-                        currentNumber = parseFloat(currentInput);
-                    }
-                    
-                    if (state.length === 0) {
-                        state.push(currentNumber);
-                        state.push(button.dataset.action);
-                    } 
+// Event listener for percentage button
+percentButton.addEventListener("click", () => {
+    let value = parseFloat(currentInput);
+    let percentValue = value / 100;
 
-                    else {
-                        alert(state[0], state[1], currentNumber);
-                        let result = calculate(state[0], state[1], currentNumber);
-                        alert(result)
-                        
-                    }
+    currentInput = percentValue.toString(); 
+    updateDisplay();
+});
 
-                    currentInput = 0;
-                    display.innerHTML = "";
-                }
+// Event listener for all clear button
+allClearButton.addEventListener("click", () => {
+    currentInput = "0";
+    A = 0;
+    operator = null;
+    B = null;
+    updateDisplay();
+});
+
+// Event listeners for number buttons
+numberButtons.forEach(numberButton => {
+    numberButton.addEventListener("click", () => {
+        let value = numberButton.dataset.number;
+
+        // Handle decimal point
+        if (value === ".") {
+            if (currentInput != "" && !currentInput.includes(value)) {
+                currentInput += value; 
             }
-        });
+        } else { 
+            if (currentInput === "0" || currentInput === "0.0") {
+                currentInput = value;
+            } else {
+                currentInput += value;
+            }
+        } 
+
+        updateDisplay(); 
     });
-}
+});
 
-function add(a, b) {
-    return a + b;
-}
+// Event listener for operator buttons
+operationButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const operatorValue = button.dataset.operation;
 
-function subtract(a, b) {
-    return a - b;
-}
+        if (operator && currentInput !== "0") {
+            B = parseFloat(currentInput); 
+            A = calculate(A, B, operator); 
+            currentInput = A.toString(); 
+            updateDisplay();
+        } else if (!operator) {
+            A = parseFloat(currentInput);
+        }
+       
+        operator = operatorValue;
+        currentInput = "0";
+    });
+});
 
-function multiplication(a, b) {
-    return a * b;
-}
+// Event listener for equals button
+equalsButton.addEventListener("click", () => {
+    if (operator && currentInput !== "0") {
+        B = parseFloat(currentInput); 
+        A = calculate(A, B, operator); 
+        currentInput = roundTo(A, 5).toString(); 
+        operator = null;
+        updateDisplay();
+        console.log(currentInput);
+    }
+});
 
-function divide(a, b) {
-    return a / b;
-}
-
-function percent(a) {
-    return a / 100;
-}
-
-function calculate(num1, operator, num2) {
+// Perform basic operations with appropriate formatting
+const calculate = (a, b, operator) => {
     let result;
 
     switch (operator) {
-        case 'add':
-            result = num1 + num2;
+        case "add":
+            result = a + b; 
             break;
-        case 'subtract':
-            result = num1 - num2; 
+        case "subtract":
+            result = a - b; 
             break;
-        case 'multiply':
-            result = num1 * num2; 
+        case "multiply":
+            result = a * b; 
             break;
-        case 'divide':
-            if (num2 === 0) {
-                return 'Error: Division by zero';
+        case "divide":
+            if (b === 0) {
+                return "Error"; 
             }
-            result = num1 / num2; 
-            break;
-        case 'percent':
-            result = (num1 * num2) / 100; 
+            result = a / b; 
             break;
         default:
-            return 'Error: Invalid operator';
+            return a; // Return the first operand if no operator
     }
 
+    // Return the result for further processing
     return result;
-}
+};
 
-processInput();
 
-*/
+// Initialize the display font size when loading the script
+updateDisplay();

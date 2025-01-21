@@ -12,13 +12,13 @@ body {
 }
 
 .calculator {
-    display: grid;
+    display: flex;
     justify-content: center;
     align-items: center;
     margin: 100px;
     background-color: #1C1C1C;
     width: 350px;
-    min-height: 600px;
+    height: 600px;
     border-radius: 50px;
     padding: 20px;
 }
@@ -30,12 +30,19 @@ body {
 
 .display {
     display: flex;
+    align-items: flex-end;
     width: 100%;
     height: 35%;
-    justify-content: flex-end;
-    align-items: flex-end;
-    font-size: 100px;
+}
+
+.result {
+    width: 100%;
+    background-color: #1C1C1C;
+    outline: none;
+    border: none;
+    font-size: 90px;
     color: #FFFFFF;
+    text-align: right;
 }
 
 .cal-grid {
@@ -68,18 +75,18 @@ button[data-equals] {
 }
 
 button[data-all-clear],
-button[data-sign],
+button[data-sign-change],
 button[data-percent] {
     background-color: #D4D4D2;
     color: #1C1C1C;
 }
 
 button:hover {
-    background-color: #9BD8D8;
+    opacity: 70%;
 }
 
 button:active {
-    background-color: #B9FFFF;
+    opacity: 90%;
 }  
 
 
