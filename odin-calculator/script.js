@@ -26,15 +26,11 @@ const updateDisplay = () => {
 
 // Event listener for sign change button
 signChangeButton.addEventListener("click", () => {
-    if (currentInput === "0") {
-        return;
-    }
+    if (currentInput === "0") return;
 
-    if (currentInput[0] === "-") {
-        currentInput = currentInput.slice(1); 
-    } else {
-        currentInput = "-" + currentInput; 
-    }
+    currentInput = currentInput[0] === "-" 
+        ? currentInput.slice(1) 
+        : "-" + currentInput;
 
     updateDisplay();
 });
@@ -62,18 +58,11 @@ numberButtons.forEach(numberButton => {
     numberButton.addEventListener("click", () => {
         let value = numberButton.dataset.number;
 
+
         // Handle decimal point
-        if (value === ".") {
-            if (currentInput != "" && !currentInput.includes(value)) {
-                currentInput += value; 
-            }
-        } else { 
-            if (currentInput === "0" || currentInput === "0.0") {
-                currentInput = value;
-            } else {
-                currentInput += value;
-            }
-        } 
+        if (value === "." && currentInput.includes(value)) return;
+
+        currentInput = currentInput === "0" ? value: currentInput + value;
 
         updateDisplay(); 
     });
@@ -111,13 +100,14 @@ operationButtons.forEach(button => {
 
 // Event listener for equals button
 equalsButton.addEventListener("click", () => {
-    if (operator && currentInput !== "0") {
-        B = parseFloat(currentInput); 
-        A = calculate(A, B, operator); 
-        currentInput = roundTo(A, 5).toString(); 
-        operator = null;
-        updateDisplay();
-    }
+    if (!operator  || currentInput === "0") return;
+
+    B = parseFloat(currentInput); 
+    A = calculate(A, B, operator); 
+
+    currentInput = roundTo(A, 5).toString(); 
+    operator = null;
+    updateDisplay();
 });
 
 // Perform basic operations with appropriate formatting
@@ -126,26 +116,17 @@ const calculate = (a, b, operator) => {
 
     switch (operator) {
         case "add":
-            result = a + b; 
-            break;
+            return a + b; 
         case "subtract":
-            result = a - b; 
-            break;
+            return a - b; 
         case "multiply":
-            result = a * b; 
-            break;
+            return a * b; 
         case "divide":
-            if (b === 0) {
-                return "Error"; 
-            }
-            result = a / b; 
-            break;
+            return b === 0 ? "Error" : a / b;
+    
         default:
-            return a; // Return the first operand if no operator
+            return a; 
     }
-
-    // Return the result for further processing
-    return result;
 };
 
 
