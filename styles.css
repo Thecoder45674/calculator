@@ -81,16 +81,11 @@ button[data-percent] {
     color: #1C1C1C;
 }
 
-button:hover {
+button:active {
     opacity: 70%;
 }
 
-button:active {
-<<<<<<< HEAD:styles.css
-    opacity: 90%;
-=======
-    background-color: #B9FFFF;
->>>>>>> 5e60bd6 (Remove unrelated directories from clean-branch):odin-calculator/styles.css
-}  
-
-
+.operator-clicked {
+    background-color: #FFFFFF;
+    color: #FF9500;
+}
