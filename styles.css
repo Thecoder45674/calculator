@@ -1,7 +1,16 @@
+:root {
+    --primary-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --primary-color: #1C1C1C;
+    --secondary-color: #FFFFFF;
+    --button-primary-color: #505050;
+    --button-secondary-color: #FF9500;
+    --button-tertiary-color: #D4D4D2;
+}
+
 * {
     padding: 0;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--primary-font);
 }
 
 body {
@@ -16,7 +25,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: 100px;
-    background-color: #1C1C1C;
+    background-color: var(--primary-color);
     width: 350px;
     height: 600px;
     border-radius: 50px;
@@ -37,11 +46,11 @@ body {
 
 .result {
     width: 100%;
-    background-color: #1C1C1C;
+    background-color: var(--primary-color);
     outline: none;
     border: none;
     font-size: 90px;
-    color: #FFFFFF;
+    color: var(--secondary-color);
     text-align: right;
 }
 
@@ -59,10 +68,10 @@ button {
     width: 70px;
     height: 70px;
     border-radius: 40px;
-    background-color: #505050;
+    background-color: var(--button-primary-color);
     border: none;
     font-size: 24px;
-    color: #FFFFFF;
+    color: var(--secondary-color);
 }
 
 .span-two {
@@ -71,21 +80,16 @@ button {
 
 button[data-operation],
 button[data-equals] {
-    background-color: #FF9500;
+    background-color: var(--button-secondary-color);
 }
 
 button[data-all-clear],
 button[data-sign-change],
 button[data-percent] {
-    background-color: #D4D4D2;
-    color: #1C1C1C;
+    background-color: var(--button-tertiary-color);
+    color: var(--primary-color)
 }
 
 button:active {
     opacity: 70%;
-}
-
-.operator-clicked {
-    background-color: #FFFFFF;
-    color: #FF9500;
 }
