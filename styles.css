@@ -21,9 +21,6 @@ body {
 }
 
 .calculator {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 100px;
     background-color: var(--primary-color);
     width: 350px;
@@ -33,7 +30,6 @@ body {
 }
 
 .content {
-    width: 100%;
     height: 100%;
 }
 
@@ -47,7 +43,6 @@ body {
 .result {
     width: 100%;
     background-color: var(--primary-color);
-    outline: none;
     border: none;
     font-size: 90px;
     color: var(--secondary-color);
