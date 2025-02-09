@@ -21,5 +21,3 @@ Project created with:
 - CSS3: For styling and layout design.
 - JavaScript: For calculator functionality and interactivity.
 
-## Live Demo
-[View live demo here](thecoder45674.github.io/calculator/)
