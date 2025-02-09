@@ -19,9 +19,21 @@ const roundTo = (number, decimalPlaces) => {
     return Math.round(number * factor) / factor;
 };
 
+// Function to resize the display based on the length of the input
+const resizeDisplay = () => {
+    if (currentInput.length > 7) {
+        display.style.fontSize = '50px'; // Very small font for very long numbers
+    } else if (currentInput.length > 5) {
+        display.style.fontSize = '70px'; // Smaller font for long numbers
+    } else {
+        display.style.fontSize = '90px'; // Default font size
+    }
+};
+
 // Function to update display
 const updateDisplay = () => {
     display.value = currentInput; 
+    resizeDisplay();
 };
 
 // Event listener for sign change button
@@ -58,6 +70,10 @@ numberButtons.forEach(numberButton => {
     numberButton.addEventListener("click", () => {
         let value = numberButton.dataset.number;
 
+        if (currentInput.length >= 10) {
+            alert("You cannot enter more than 10 digits."); // Alert user
+            return; // Exit function to prevent further input
+        }
 
         // Handle decimal point
         if (value === "." && currentInput.includes(value)) return;
